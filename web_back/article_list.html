@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="css/iconfont.css">
     <link rel="stylesheet" href="css/main.css">
     <script src="js/jquery-1.12.4.min.js"></script>
+    <script src="./js/template-web.js"></script>
 </head>
 
 <body>
@@ -267,12 +268,50 @@
 
         </div>
     </div>
+    <!-- <script id="template-list" type="text/html">
+        {{each data v}}
+        
+        <tr>
+                        
+            <td>{{v.title}}</td>
+            <td>{{作者}}</td>
+            <td>{{v.type}}</td>
+            <td class="text-center">{{v.date}}</td>
 
+
+            <td class="text-center">{{v.state}}</td>
+
+
+            <td class="text-center">
+                <a href="article_edit.html" class="btn btn-default btn-xs">编辑</a>
+                <a href="javascript:deleteTr( 1005 );" class="btn btn-danger btn-xs">删除</a>
+            </td>
+        </tr>
+        {{/each}} -->
+    </script>
     <script>
         // 设置左侧菜单
         $('#release_btn').click(function(){
             window.parent.setMenu(1,1);
         })
+    </script>
+    <script>
+        // $(function(){
+        //     //获取所有文章列表
+        //     $.ajax({
+        //         url: 'http://localhost:8080/admin/article/query',
+        //         success:function(backData){
+        //             console.log(backData);
+        //             var resHtml = template('template-list',backdata);
+        //             $('tbody').html(resHtml);
+        //         }
+        //     })
+        // })
+
+        //给筛选注册
+        // $('#btnSearch').on('click',function(){
+
+        // })
     </script>
 
 </body>

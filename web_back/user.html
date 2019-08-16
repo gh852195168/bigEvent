@@ -45,7 +45,12 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">用户图标：</label>
                     <div class="col-sm-10">
                         <img src="images/2.jpg" alt="" class="user_pic">
-                        <input type="file" id="exampleInputFile" name="userPic">
+                        <input style="display: none" type="file" id="exampleInputFile" name="userPic">
+                        <br>
+                        <label style="cursor:pointer" for="exampleInputFile">
+                            <img src="./images/timg.jpg" style="width:30px" alt="">
+                            <span>提交图片</span>
+                        </label>
                     </div>
                 </div>
 
@@ -103,18 +108,18 @@
                         if (backData.code == 200) {
 
                             alert('修改成功');
-                           parent.window.location.href = 'login.html';
-                        //    parent.window.location.reload();
-                            // $.ajax({
-                            //     type: 'get',
-                            //     url: 'http://localhost:8080/admin/user/info',
-                            //     success: function (backData) {
-                            //         console.log(backData);
-                            //         parent.$('.user_info>img').attr('src',backData.data.userPic);
-                            //         parent.$('.user_info>span').html('欢迎&nbsp;&nbsp;'+backData.data.nickname);
-                            //         parent.$('#person-icon').attr('src',backData.data.userPic);
-                            //     }
-                            // })
+                        //    parent.window.location.href = 'login.html';
+                        // parent.window.location.reload();
+                            $.ajax({
+                                type: 'get',
+                                url: 'http://localhost:8080/admin/user/info',
+                                success: function (backData) {
+                                    console.log(backData);
+                                    parent.$('.user_info>img').attr('src',backData.data.userPic);
+                                    parent.$('.user_info>span').html('欢迎&nbsp;&nbsp;'+backData.data.nickname);
+                                    parent.$('#person-icon').attr('src',backData.data.userPic);
+                                }
+                            })
 
                         }
 
