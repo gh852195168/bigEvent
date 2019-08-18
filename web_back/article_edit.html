@@ -15,6 +15,7 @@
     <script src="js/jedate/js/jedate.js"></script>
     <script src="js/tinymce/js/tinymce/tinymce.min.js"></script>
     <script src="js/tinymce/js/tinymce_setup.js"></script>
+    <script src="./js/template-web.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
                     <div class="col-sm-10">
-                        <input type="email" class="form-control" id="inputEmail3" value="文章标题文字">
+                        <input type="text" name="title" class="form-control" id="inputEmail3" value="文章标题文字">
                     </div>
                 </div>
                 <div class="form-group">
@@ -40,7 +41,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
                     <div class="col-sm-4">
-                        <select class="form-control">
+                        <select class="form-control" name="categoryId" id="selCategory">
                             <option>类别一</option>
                             <option>类别二</option>
                             <option>类别三</option>
@@ -54,7 +55,7 @@
                     <div class="col-sm-4">
 
                         <div class="input-group">
-                            <input type="text" class="form-control" value="2019-05-17" id="dateinput">
+                            <input type="text" class="form-control" value="2019-05-17" id="dateinput" name="date">
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button"
                                     onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
@@ -66,18 +67,85 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="rich_content" name="content" placeholder="文章内容" value="文章内容">
+                        <input type="text" class="form-control" id="rich_content" name="content" placeholder="文章内容"
+                            value="文章内容">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-success">修改</button>
+                        <button type="submit" class="btn btn-success" id="btn-edit">修改</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>
+    <script id="template-category" type="text/html">
+        {{each data v}}
+        <option value="{{v.id}}">{{v.name}}</option>
+        {{/each}}
+    </script>
+    <script>
+        //显示要编辑的内容
+        $(function () {
 
+            console.log((window.location.search).split('=')[1]);
+
+            //获取显示文章类别
+            $.ajax({
+                url: 'http://localhost:8080/admin/category/list',
+                success: function (backData) {
+                    console.log(backData);
+
+                    var resHtml = template('template-category', backData);
+                    $('#selCategory').html(resHtml);
+                }
+            })
+
+            $.ajax({
+                url: 'http://localhost:8080/admin/article/search',
+                data: {
+                    id: (window.location.search).split('=')[1]
+                },
+                success: function (backData) {
+                    console.log(backData);
+
+                    $('#inputEmail3').val(backData.data.title);
+                    $('#dateinput').val(backData.data.date);
+                    $('#rich_content').val(backData.data.content);
+                    $('.article_cover').attr('src', backData.data.cover);
+                    $('#selCategory').val(backData.data.categoryId);
+                    // for(var key in backData){
+                    //     $('input.'+key).val(backData[key]);
+                    // }
+                }
+            })
+
+            //图片预览
+            $('#exampleInputFile').on('change', function () {
+                var url = URL.createObjectURL(this.files[0]);
+                $('.article_cover').attr('src', url);
+            })
+
+            //修改
+            $('#btn-edit').on('click', function (e) {
+                e.preventDefault();
+                var fd = new FormData($('form')[0]);
+                fd.append('id',(window.location.search).split('=')[1]);
+                fd.append('cover',$('.article_cover').attr('src'))
+                $.ajax({
+                    type: 'post',
+                    url: 'http://localhost:8080/admin/article/edit',
+                    data: fd,
+                    processData: false,
+                    contentType: false,
+                    success: function (backData) {
+                        alert(backData.msg);
+                        window.location.href = 'article_list.html';
+                    }
+                })
+            })
+        })
+    </script>
 </body>
 
 </html>
