@@ -349,10 +349,11 @@
 
                             var mytotalPages = backData.data.totalPage;
                             console.log(mytotalPages);
-
+                                //获取当前页
+                                window.currentPage = $pagination.twbsPagination('getCurrentPage');
                             if (mytotalPages != totalPages || temp==true) {//点击筛选 也执行代码
                                 totalPages = mytotalPages;
-                                var currentPage = $pagination.twbsPagination('getCurrentPage');
+                            
                                 console.log(currentPage);
                                 
                                 //有一个问题,就是分页插件调用destroy方法的时候,会自动的去调用onPageClick事件.所以就无限循环了.
@@ -411,8 +412,8 @@
                     success:function(backData){
                         if(backData.code == 204){
                             // alert('删除成功');
-                            // getList(1);
-                            $that.parent().parent().remove();
+                            getList(currentPage);
+                            // $that.parent().parent().remove();
                             // $('#btnSearch').trigger('click');
                         }
                     }

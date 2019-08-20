@@ -35,7 +35,7 @@
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
                         <img src="images/pic06.jpg" class="article_cover">
-                        <input type="file" id="exampleInputFile">
+                        <input type="file" name="cover" id="exampleInputFile">
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,7 +67,7 @@
                 <div class="form-group">
                     <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="rich_content" name="content" placeholder="文章内容"
+                        <input type="text" class="form-control" id="rich_content" name="" placeholder="文章内容"
                             value="文章内容">
                     </div>
                 </div>
@@ -131,7 +131,9 @@
                 e.preventDefault();
                 var fd = new FormData($('form')[0]);
                 fd.append('id',(window.location.search).split('=')[1]);
-                fd.append('cover',$('.article_cover').attr('src'))
+                // fd.append('cover',$('.article_cover').attr('src'));
+                // input file 的 value值
+                fd.append('content',tinyMCE.activeEditor.getContent()) ;
                 $.ajax({
                     type: 'post',
                     url: 'http://localhost:8080/admin/article/edit',

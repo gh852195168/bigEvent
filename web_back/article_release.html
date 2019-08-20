@@ -36,9 +36,10 @@
                 <div class="form-group">
                     <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
                     <div class="col-sm-10">
+                        <img style="width: 100px" src="./images/2.jpg" alt="">
                         <input name="cover" type="file" id="exampleInputFile">
                         <div class="text2" style="color: hotpink"></div>
-                        <img style="width: 100px" src="./images/2.jpg" alt="">
+
                     </div>
                 </div>
                 <div class="form-group">
@@ -95,7 +96,7 @@
             //图片预览
             $('#exampleInputFile').on('change', function () {
                 var url = URL.createObjectURL(this.files[0]);
-                $(this).next().attr('src', url);
+                $(this).prev().attr('src', url);
                 console.log(url);
 
             });
@@ -125,14 +126,14 @@
             }).setValue(str);
 
             //新增文章
-            function add(state){
-               
+            function add(state) {
+
                 var fd = new FormData($('form')[0]);
 
                 //  发布的文章内容是富文本编辑器里面的, 所以要追加到formData中去. 
                 fd.append('content', tinyMCE.activeEditor.getContent());
                 // fd.append('content',$('#rich_content').text());
-                fd.append('state',state);
+                fd.append('state', state);
                 console.log(fd);
                 var temp = true;
                 $.ajax({
@@ -147,7 +148,7 @@
                             $('.text').text('不能为空');
 
                         }
-                        if($('#exampleInputFile').val() == ''){
+                        if ($('#exampleInputFile').val() == '') {
                             $('.text2').text('请选择一张图片做封面');
                         }
                     },
@@ -168,15 +169,15 @@
                     alert('请填写完整');
                 }
             }
-           
+
             //草稿
             $('#caogao').on('click', function (e) {
                 e.preventDefault();
                 add('草稿');
 
             })
-             //已发布
-             $('#publish').on('click', function (e) {
+            //已发布
+            $('#publish').on('click', function (e) {
                 e.preventDefault();
                 add('已发布');
 

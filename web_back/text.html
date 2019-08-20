@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    li {
+        width: 60px;
+        height: 40px;
+        list-style: none;
+        float: left;
+        line-height: 40px;
+        background: coral;
+        text-align: center;
+        position: relative;
+    }
+
+    a {
+        display: block;
+        width: 100%;
+        text-decoration: none;
+        position: absolute;
+        z-index: 1;
+    }
+    polyline{
+        stroke: black;
+        stroke-width: 8;
+        fill: none;
+        
+    }
+    li:hover{
+        /* background: pink; */
+    }
+    svg {
+        position: absolute;
+        left: 0;
+    }
+</style>
+
+<body>
+
+    <ul>
+        <li>
+            <a href="">菜单1</a>
+            <svg width="100%" height="100%">
+                <polyline points="0,0 60,0"></polyline>
+            </svg>
+        </li>
+        <li>
+            <a href="">菜单2</a>
+        </li>
+        <li>
+            <a href="">菜单3</a>
+        </li>
+        <li>
+            <a href="">菜单4</a>
+        </li>
+        <li>
+            <a href="">菜单5</a>
+        </li>
+        <li>
+            <a href="">菜单6</a>
+        </li>
+    </ul>
+
+    <script>
+        //      var obj = [
+
+        // {
+        // "name": "爱旅行",
+        // "articles": 32
+        // },
+        // {
+        // "name": "爱美食",
+        // "articles": 36
+        // },
+        // {
+        // "name": "爱运动",
+        // "articles": 47
+        // },
+        // {
+        // "name": "经济特区",
+        // "articles": 33
+        // }
+        // ];
+        var obj = [];
+        obj[0] = {
+                "name": "爱生活",
+                "articles": 72
+            },
+            obj[1] = {
+                "name": "爱生活",
+                "articles": 72
+            },
+            obj[2] = {
+                "name": "爱生活",
+                "articles": 72
+            },
+            obj[3] = {
+                "name": "爱生活",
+                "articles": 72
+            },
+            obj[4] = {
+                "name": "爱生活",
+                "articles": 72
+            },
+            console.log(obj);
+    </script>
+</body>
+
+</html>
